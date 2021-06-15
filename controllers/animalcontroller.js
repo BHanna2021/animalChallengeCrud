@@ -31,4 +31,20 @@ router.get("/", async(req, res) => {
     }
 });
 
+router.delete("/delete/:id", async(req, res) => {
+    const animalId = req.params.id;
+
+    try {
+        const query = {
+            where: {
+                id: animalId
+            }
+        };
+        await Animal.destroy(query);
+        res.status(200).json({ message: "Animal has been removed " });
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
+
 module.exports = router;
